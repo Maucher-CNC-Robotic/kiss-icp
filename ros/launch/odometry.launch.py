@@ -42,18 +42,18 @@ default_config_file = os.path.join(
 
 
 def generate_launch_description():
-    use_sim_time = LaunchConfiguration("use_sim_time", default="true")
+    use_sim_time = LaunchConfiguration("use_sim_time", default="false")
 
     # ROS configuration
-    pointcloud_topic = LaunchConfiguration("topic")
-    visualize = LaunchConfiguration("visualize", default="true")
+    pointcloud_topic = LaunchConfiguration("topic", default="/livox/lidar")
+    visualize = LaunchConfiguration("visualize", default="false")
 
     # Optional ros bag play
-    bagfile = LaunchConfiguration("bagfile", default="")
+    # bagfile = LaunchConfiguration("bagfile", default="")
 
     # tf tree configuration, these are the likely parameters to change and nothing else
-    base_frame = LaunchConfiguration("base_frame", default="")  # (base_link/base_footprint)
-    lidar_odom_frame = LaunchConfiguration("lidar_odom_frame", default="odom_lidar")
+    base_frame = LaunchConfiguration("base_frame", default="base_footprint")  # (base_link/base_footprint)
+    lidar_odom_frame = LaunchConfiguration("lidar_odom_frame", default="odom")
     publish_odom_tf = LaunchConfiguration("publish_odom_tf", default=True)
     invert_odom_tf = LaunchConfiguration("invert_odom_tf", default=True)
 
@@ -98,16 +98,16 @@ def generate_launch_description():
         condition=IfCondition(visualize),
     )
 
-    bagfile_play = ExecuteProcess(
-        cmd=["ros2", "bag", "play", "--rate", "1", bagfile, "--clock", "1000.0"],
-        output="screen",
-        condition=IfCondition(PythonExpression(["'", bagfile, "' != ''"])),
-    )
+    # bagfile_play = ExecuteProcess(
+    #     cmd=["ros2", "bag", "play", "--rate", "1", bagfile, "--clock", "1000.0"],
+    #     output="screen",
+    #     condition=IfCondition(PythonExpression(["'", bagfile, "' != ''"])),
+    # )
 
     return LaunchDescription(
         [
             kiss_icp_node,
             rviz_node,
-            bagfile_play,
+            # bagfile_play,
         ]
     )
