@@ -45,9 +45,11 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration("use_sim_time", default="false")
 
     # ROS configuration
-    pointcloud_topic = LaunchConfiguration("topic", default="/livox/lidar")
+    # pointcloud_topic = LaunchConfiguration("topic", default="/livox/lidar")
+    pointcloud_topic = LaunchConfiguration("topic", default="/rslidar_points")
     visualize = LaunchConfiguration("visualize", default="false")
-
+    
+    odom_topic = LaunchConfiguration("odom_topic", default="/odom")
     # Optional ros bag play
     # bagfile = LaunchConfiguration("bagfile", default="")
 
@@ -70,6 +72,7 @@ def generate_launch_description():
         output="screen",
         remappings=[
             ("pointcloud_topic", pointcloud_topic),
+            ("/kiss/odometry", odom_topic)
         ],
         parameters=[
             {
@@ -107,7 +110,7 @@ def generate_launch_description():
     return LaunchDescription(
         [
             kiss_icp_node,
-            rviz_node,
+            # rviz_node,
             # bagfile_play,
         ]
     )
