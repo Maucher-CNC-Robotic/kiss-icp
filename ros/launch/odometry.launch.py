@@ -57,7 +57,7 @@ def generate_launch_description():
     base_frame = LaunchConfiguration("base_frame", default="base_footprint")  # (base_link/base_footprint)
     lidar_odom_frame = LaunchConfiguration("lidar_odom_frame", default="odom")
     publish_odom_tf = LaunchConfiguration("publish_odom_tf", default=True)
-    invert_odom_tf = LaunchConfiguration("invert_odom_tf", default=True)
+    invert_odom_tf = LaunchConfiguration("invert_odom_tf", default=False)
 
     position_covariance = LaunchConfiguration("position_covariance", default=0.1)
     orientation_covariance = LaunchConfiguration("orientation_covariance", default=0.1)

@@ -17,7 +17,7 @@ kiss_icp_node:
 
     data:
       deskew: True
-      max_range: 60.0 #100.0
+      max_range: 15.0 #60.0 #100.0
       min_range: 0.1
 
     mapping:
